@@ -2,6 +2,39 @@
 
 This directory contains CUDA examples for basic image processing tasks.
 
+## Key Concepts
+
+Understanding how to map 2D image coordinates to CUDA threads and linear memory is crucial for image processing on GPUs.
+
+### 1. CUDA Multi-dimensional Indexing
+CUDA allows checking the `blockIdx`, `blockDim`, and `threadIdx` to calculate global thread coordinates. For 2D images, we typically use a 2D grid of 2D blocks.
+
+![CUDA Multi-dimensional Indexing](images/01_cuda_multi_dim_idx.png)
+
+- `gridDim`: Dimensions of the grid (number of blocks).
+- `blockDim`: Dimensions of each block (number of threads).
+- `blockIdx`: Index of the current block within the grid.
+- `threadIdx`: Index of the current thread within the block.
+
+### 2. Row-Major Order
+Although we visualize images as 2D grids of pixels, computer memory is linear (1D). Images are typically stored in **Column-Major Order** or **Row-Major Order** as in the image below, where all pixels of the first row are stored first, followed by the second row, and so on.
+
+![Row Major Order](images/02_row_major_order.png)
+
+### 3. Accessing Multi-dimensional Data
+To access a pixel at coordinate `(x, y)` in a 1D array, we must linearize the index.
+  
+![Accessing Multi-dimensional Data](images/03_access_multi_dim_data.png)
+
+The standard formula to map a generic thread `(tx, ty)` to a linear index `i` is:
+```cpp
+int idx = y * width + x;
+```
+For RGB images (3 channels), the memory stores R, G, B values consecutively, so the byte offset becomes:
+```cpp
+int idx = (y * width + x) * channels;
+```
+
 ## Examples
 
 ### 1. Grayscale Conversion (`multi_dim.cu`)
