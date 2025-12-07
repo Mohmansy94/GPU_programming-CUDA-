@@ -92,6 +92,38 @@ Performance:
   Execution Time Reduction: 68.47%
 ```
 
+
+## Occupancy Code Example
+We explored how to optimize occupancy using the CUDA Occupancy API.
+
+**Files:**
+*   [occupancy.cu](occupancy.cu): Demonstrates using `cudaOccupancyMaxPotentialBlockSize` to calculate the optimal block size for a specific kernel.
+*   [device_occupancy.cu](device_occupancy.cu): A utility to query all available GPUs and calculate theoretical optimal occupancy parameters.
+
+**Profiling Results (Nsight Compute):**
+Using `ncu`, we can verify that our calculated block size aims for 100% theoretical occupancy. However, achieved occupancy may vary due to runtime factors and will be disscused in performance lecture.
+
+```text
+Calculated Optimal Execution Parameters:
+  Recommended Block Size: 768
+  Minimum Grid Size: 112
+  Actual Grid Size used: 21846
+
+Section: Occupancy
+------------------------------- ----------- ------------
+Metric Name                     Metric Unit Metric Value
+------------------------------- ----------- ------------
+Block Limit SM                        block           24
+Block Limit Registers                 block            5
+Block Limit Shared Mem                block            8
+Block Limit Warps                     block            2
+Theoretical Active Warps per SM        warp           48
+Theoretical Occupancy                     %          100
+Achieved Occupancy                        %        65.76
+Achieved Active Warps Per SM           warp        31.56
+------------------------------- ----------- ------------
+```
+
 ## References
 *   [NVIDIA Ampere Architecture Whitepaper](https://images.nvidia.com/aem-dam/en-zz/Solutions/data-center/nvidia-ampere-architecture-whitepaper.pdf)
 *   [YouTube: Lecture 04 - GPU Architecture](https://youtu.be/pBQJAwogMoE?si=3-jyrl9iUAR4OQLN)
