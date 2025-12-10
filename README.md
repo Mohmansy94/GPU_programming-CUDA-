@@ -11,6 +11,15 @@ The project is organized by lectures, each containing source code (`.cu`), build
     *   Includes `divergence.cu` to demonstrate warp divergence performance impact.
     *   Includes `occupancy.cu` and `device_occupancy.cu` for calculating optimal launch configurations.
 
+*   **Lecture 05:** Memory and Tiling.
+*   **Lecture 06:** Performance Considerations.
+    *   **Memory Coalescing:** Demonstrates the impact of stride 1 (coalesced) vs stride 32 (uncoalesced) access in `coalesce.cu` (~9x speedup).
+    *   **Thread Coarsening:** Compares fine-grained vs coarse-grained kernels in `coarsening.cu`.
+    *   **Latency Hiding:** Visualizes how warp scheduling hides memory latency.
+*   **Lecture 07:** Profiling.
+    *   **CLI Profiling:** Using `ncu` (Nsight Compute) to analyze kernel performance from the terminal.
+    *   **GUI Profiling:** Detailed guide and demonstration video for using the Nsight Compute GUI.
+
 ## Future Updates
 Based on the course curriculum, upcoming lectures and code modules will cover:
 
